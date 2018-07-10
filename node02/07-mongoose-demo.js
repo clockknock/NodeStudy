@@ -5,7 +5,8 @@ let User = require("./model/user");
 let options = {
     user: "root",
     pass: "123456",
-    dbName: "test"
+    // dbName: "test"
+    dbName: "product-manager-backend"
 };
 let promise = mongoose.connect("mongodb://127.0.0.1", options);
 
