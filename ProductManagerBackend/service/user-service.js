@@ -2,7 +2,7 @@ let User = require("../model/user");
 require('mongoose');
 let crypto = require("lxj-crypto");
 let config = require("../config");
-
+let moment = require("moment");
 /**
  * 登录
  * @param user
@@ -43,9 +43,11 @@ async function register(user) {
 
     user.password = crypto.sha256Hmac(user.password, user.username);
     user.role = 0;
-    user.created = Date.now() + 3600 * 8;
+
+    user.created =moment().format();
 
     let create = await User.create(user);
+    console.log("end create");
     if (create){
         return "注册成功";
     } else{

@@ -1,6 +1,7 @@
 let mongoose = require("mongoose");
 let config = require("./config");
 
+
 mongoose.connect(config.DB_URL, config.DB_CONFIG);
 
 let db = mongoose.connection;
@@ -11,4 +12,5 @@ db.on("err", err => {
 
 db.once("open", () => {
     console.log("连接成功");
+
 });

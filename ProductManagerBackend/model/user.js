@@ -3,7 +3,7 @@ let schema = mongoose.Schema({
     username: {
         type: String,
         require: [true, "用户名不能为空"],
-        unique:true
+        unique: true
     },
     password: {
         type: String,
@@ -15,13 +15,15 @@ let schema = mongoose.Schema({
         max: [120, "年龄不能大于120岁,吧?"],
     },
     role: {
-        type:Number,
-        default:0
+        type: Number,
+        default: 0
     },
-    created: {
-        type: Date,
-        default: Date.now() + 3600 * 8
+    created:{
+        type:Date,
+        default:Date.now()
     }
 });
+// schema.plugin(timeZone);
 
-module.exports = mongoose.model("users", schema);
+let model = mongoose.model("users", schema);
+module.exports = model;
