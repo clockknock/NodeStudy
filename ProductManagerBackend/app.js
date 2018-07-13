@@ -14,12 +14,14 @@ app.use(morgan('combined'));
 app.use(bodyParser.json());
 //给response增加success和fail方法
 app.use(require("./middleware/resp_builder"));
-
+app.use(require("./middleware/token_md"));
+app.use(require("./middleware/permission_md"));
 
 //注册路由
 app.use("/user", require("./router/user"));
 app.use("/category", require("./router/category"));
 app.use("/product",require("./router/product"));
+app.use("/order",require("./router/order"));
 
 app.use((err, req, resp, next) => {
     resp.fail(err.toString());

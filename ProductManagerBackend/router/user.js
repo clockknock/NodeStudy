@@ -3,7 +3,7 @@ let userService = require("../service/user-service");
 
 router.get("/", async (req, resp) => {
     console.log(req.query.username + " " + req.query.password);
-    let find = await userService.find(req.query.username, req.query.password);
+    let find = await userService.login({username: req.query.username, password: req.query.password});
     resp.success(find);
 });
 

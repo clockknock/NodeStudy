@@ -2,7 +2,7 @@ let router = require("express").Router();
 let categoryService = require("../service/category-service");
 
 router.get("/", async (req, resp) => {
-    let all = await categoryService.findAll(req.query.page);
+    let all = await categoryService.findByPage(req.query.page);
     resp.success(all);
 });
 router.post("/", async (req, resp) => {

@@ -3,6 +3,7 @@ require('mongoose');
 let crypto = require("lxj-crypto");
 let config = require("../config");
 let moment = require("moment");
+
 /**
  * 登录
  * @param user
@@ -44,13 +45,13 @@ async function register(user) {
     user.password = crypto.sha256Hmac(user.password, user.username);
     user.role = 0;
 
-    user.created =moment().format();
+    user.created = moment().format();
 
     let create = await User.create(user);
     console.log("end create");
-    if (create){
+    if (create) {
         return "注册成功";
-    } else{
+    } else {
         return "注册失败";
     }
 }
@@ -70,16 +71,24 @@ async function del(username) {
 }
 
 async function find(username, password) {
-    let user = {username:username};
+    let user = {username: username};
     user.password = crypto.sha256Hmac(password, username);
     let findOne = await User.findOne(user).select("-password");
     if (!findOne) {
         throw Error("用户名或密码错误");
     }
     return findOne;
+}
+
+async function findByUsername(username) {
+    let findOne = await User.findOne({username: username}).select("-password");
+    if (!findOne) {
+        throw Error("用户不存在");
+    }
+    return findOne;
 
 }
 
 module.exports = {
-    login, register, del, find
+    login, register, del, find, findByUsername
 };
